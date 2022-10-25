@@ -41,7 +41,7 @@ function fibsRec(number, iter=0) {
     return result
     function recursion(number, arr, iter=1) {
         if(iter===number) {
-            return arr
+            return
         }
         else {
             arr.push((arr[iter] + arr[iter - 1]))
@@ -53,6 +53,61 @@ function fibsRec(number, iter=0) {
 
 
 }
-const x = 3
-console.log(fibs(x))
-console.log(fibsRec(x))
+
+
+const arrayTest = [5,0,6, 4, 2, 1, 5, 3, 12, 9, 22, 4]
+
+class mergeSort {
+
+    static divide(array) {
+
+        if(array.length === 1) {
+            return array
+        }
+
+            const middleIndex = Math.ceil(array.length / 2)
+            const left = this.divide(array.splice(0, middleIndex))
+            const right = this.divide(array.splice(-middleIndex))
+            return merge(left, right)
+
+
+        function merge(array1, array2) {
+            const sortedArray = []
+            let arr1Iter = 0;
+            let arr2Iter = 0;
+
+
+            function copyRestOfArray(arraySelected, iter) {
+                while(iter < arraySelected.length) {
+                    sortedArray.push(arraySelected[iter])
+                    iter++
+                }
+            }
+            function noneleft() {
+                if ((arr1Iter < array1.length) && (arr2Iter < array2.length)) {
+                    return false
+                }
+                if (arr1Iter === array1.length) {
+                    copyRestOfArray(array2, arr2Iter)
+                    return
+                }
+                copyRestOfArray(array1, arr1Iter)
+                return
+
+            }
+
+            while (noneleft() === false) { //TODO : replace with shortcut for false
+
+                if (array1[arr1Iter] > array2[arr2Iter]) {
+                    sortedArray.push(array2[arr2Iter])
+                    arr2Iter++
+                } else {
+                    sortedArray.push(array1[arr1Iter])
+                    arr1Iter++
+                }
+            }
+            return sortedArray}
+    }
+}
+
+console.log(mergeSort.divide(arrayTest))
